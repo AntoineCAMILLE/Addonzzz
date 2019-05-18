@@ -1,10 +1,11 @@
 'use strict';
 
 const AllianceChat = () => {
-	
+
 	let t;
 	let msgDiv;
-	
+    let dom;
+
 	const envoiChat = () => {
 	$.ajax({
 		url : "appelAjax.php",
@@ -26,7 +27,8 @@ const AllianceChat = () => {
 	const getMessages = () => {
 		$.ajax({url: "http://s4.fourmizzz.fr/alliance.php",
 				success: (data) => {
-					const dom = $(data);
+					dom = $(data);
+                    t = dom.find('#t').val();
 					const target = $('#anciensMessages');
 					dom.find('#anciensMessages').each((idx, msg) => {
 						target.append(msg);
@@ -35,7 +37,7 @@ const AllianceChat = () => {
 				}
 			   });
 	};
-	
+
 	const init = () => {
 
 
@@ -43,7 +45,7 @@ const AllianceChat = () => {
 		'overflow-x': 'hidden',
 		'background-color': 'khaki',
 		right: '0px',
-		width: '240px',
+		width: '250px',
 		position: 'fixed',
 		'border-left': '2px black solid',
 		'overflow-y': 'scroll',
@@ -52,17 +54,16 @@ const AllianceChat = () => {
 
 		$('#droite').before('<div id="allianceMessages"></div>').remove();
 		msgDiv = $('#allianceMessages');
-		msgDiv.append('<h4 style="text-align: center;">Chat d\'alliance</h4><input type="text" id="messageInput"><div id="anciensMessages></div>"');
-		t = dom.find('#t').val();
-		$('#messageInput').css('width', '223px')
+        msgDiv.css(msgDivCSS);
+		msgDiv.append('<h4 style="text-align: center;">Chat d\'alliance</h4><input type="text" id="messageInput"><div id="anciensMessages"></div>');
+        getMessages();
+		$('#messageInput').css('width', '233px')
 		.keypress((e) => {
 		if (e.keyCode === 13) {
 			envoiChat();
 			getMessages();
 			}
 		});
-		msgDiv.css(msgDivCSS);
-		getMessages();
 		setInterval(updateChat, 10000)
 	}
 	init();
@@ -71,4 +72,3 @@ const AllianceChat = () => {
 if (window.location.pathname !== "/alliance.php") {
 	AllianceChat();
 }
-
