@@ -11,7 +11,10 @@ const AllianceChat = () => {
 		url : "appelAjax.php",
 		type : 'GET',
 		data: "actualiserChat=alliance&message=%5Bcolor%3D%23000031%5D%20"+ encodeURIComponent($('#messageInput').val())+"&inputCouleur=000000&t=" + t,
-		success : (data) => $('#anciensMessages').prepend(data.message)
+		success : (data) => {
+            $('#messageInput').val("");
+            $('#anciensMessages').prepend(data.message);
+        }
 	});
 	}
 
@@ -45,19 +48,20 @@ const AllianceChat = () => {
 		'overflow-x': 'hidden',
 		'background-color': 'khaki',
 		right: '0px',
-		width: '250px',
+		//width: '250px',
 		position: 'fixed',
 		'border-left': '2px black solid',
 		'overflow-y': 'scroll',
-		height: '100%'
+		height: '100%',
+        "background-image" : "none"
 					  };
 
 		$('#droite').before('<div id="allianceMessages"></div>').remove();
-		msgDiv = $('#allianceMessages');
+		msgDiv = $('#allianceMessages').attr('id', 'droite');
         msgDiv.css(msgDivCSS);
 		msgDiv.append('<h4 style="text-align: center;">Chat d\'alliance</h4><input type="text" id="messageInput"><div id="anciensMessages"></div>');
         getMessages();
-		$('#messageInput').css('width', '233px')
+		$('#messageInput').css({width: '99%', 'margin-left': '2px'})
 		.keypress((e) => {
 		if (e.keyCode === 13) {
 			envoiChat();
