@@ -73,6 +73,6 @@ const AllianceChat = () => {
 	init();
 }
 
-if (window.location.pathname !== "/alliance.php") {
+if (window.location.pathname !== "/alliance.php" || window.location.search.length > 0) {
 	AllianceChat();
 }
