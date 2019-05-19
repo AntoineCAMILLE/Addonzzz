@@ -65,7 +65,6 @@ const AllianceChat = () => {
 		.keypress((e) => {
 		if (e.keyCode === 13) {
 			envoiChat();
-			getMessages();
 			}
 		});
 		setInterval(updateChat, 10000)
