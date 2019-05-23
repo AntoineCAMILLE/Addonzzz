@@ -13,7 +13,7 @@ const AllianceChat = () => {
 		data: "actualiserChat=alliance&message=%5Bcolor%3D%23000031%5D%20"+ encodeURIComponent($('#messageInput').val())+"&inputCouleur=000000&t=" + t,
 		success : (data) => {
             $('#messageInput').val("");
-            $('#anciensMessages').prepend(data.message);
+            $('#allianceMessages').prepend(data.message);
         }
 	});
 	}
@@ -23,7 +23,7 @@ const AllianceChat = () => {
 		url : "appelAjax.php",
 		type : 'GET',
 		data: "actualiserChat=alliance",
-		success : (data) => $('#anciensMessages').prepend(data.message)
+		success : (data) => $('#allianceMessages').prepend(data.message)
 	});
 	}
 
@@ -32,7 +32,7 @@ const AllianceChat = () => {
 				success: (data) => {
 					dom = $(data);
                     t = dom.find('#t').val();
-					const target = $('#anciensMessages');
+					const target = $('#allianceMessages');
 					dom.find('#anciensMessages').each((idx, msg) => {
 						target.append(msg);
 					}).css('padding-left', '2px');
@@ -42,7 +42,6 @@ const AllianceChat = () => {
 	};
 
 	const init = () => {
-
 
 	const msgDivCSS = {
 		'overflow-x': 'hidden',
@@ -59,7 +58,7 @@ const AllianceChat = () => {
 		$('#droite').before('<div id="allianceMessages"></div>').remove();
 		msgDiv = $('#allianceMessages').attr('id', 'droite');
         msgDiv.css(msgDivCSS);
-		msgDiv.append('<h4 style="text-align: center;">Chat d\'alliance</h4><input type="text" id="messageInput"><div id="anciensMessages"></div>');
+		msgDiv.append('<h4 style="text-align: center;">Chat d\'alliance</h4><input type="text" id="messageInput"><div id="allianceMessages"></div>');
         getMessages();
 		$('#messageInput').css({width: '99%', 'margin-left': '2px'})
 		.keypress((e) => {
@@ -70,6 +69,14 @@ const AllianceChat = () => {
 		setInterval(updateChat, 10000)
 	}
 	init();
+}
+
+const MenuBar = () => {
+
+    const btnHorizontalMenu = `<li style="width: 14%;"><a id="aozidn" target="_blank" class="">Addonzzz</a></li>`
+    const Menu =  `<ul id="menuAddonzzz" class="menu_colonne">
+<li><a class="boutonLivre" href="cookies.php"><span></span>Cookies</a></li>
+</ul>`
 }
 
 if (window.location.pathname !== "/alliance.php" || window.location.search.length > 0) {
