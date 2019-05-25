@@ -1,5 +1,9 @@
 'use strict';
 
+var Jq = jQuery.noConflict();
+
+console.log(Jq.fn.jquery);
+
 const AllianceChat = () => {
 
 	let t;
@@ -7,15 +11,17 @@ const AllianceChat = () => {
     let dom;
 
 	const envoiChat = () => {
-	$.ajax({
-		url : "appelAjax.php",
-		type : 'GET',
-		data: "actualiserChat=alliance&message=%5Bcolor%3D%23000031%5D%20"+ encodeURIComponent($('#messageInput').val())+"&inputCouleur=000000&t=" + t,
-		success : (data) => {
-            $('#messageInput').val("");
-            $('#allianceMessages').prepend(data.message);
+        if ($('#messageInput').val().length > 0) {
+            $.ajax({
+                url : "appelAjax.php",
+                type : 'GET',
+                data: "actualiserChat=alliance&message=%5Bcolor%3D%23000031%5D%20"+ encodeURIComponent($('#messageInput').val())+"&inputCouleur=000000&t=" + t,
+                success : (data) => {
+                    $('#messageInput').val("");
+                    $('#allianceMessages').prepend(data.message);
+                }
+            });
         }
-	});
 	}
 
 	const updateChat = () => {
