@@ -4,6 +4,23 @@ var Jq = jQuery.noConflict();
 
 console.log(Jq.fn.jquery);
 
+const Capacities = () => {
+    if (window.location.pathname === '/construction.php') {
+        const food = jq('#descriptionComplete9').text().split('.')[2].split(': ')[1].split('C')[0];
+        const wood = jq('#descriptionComplete10').text().split('.')[2].split(': ')[1].split('C')[0];
+        window.localStorage.setItem('capacities', JSON.stringify(["", food, wood]));
+    }
+    const target = $('.texte_ligne_boite_info');
+    let capacities = window.localStorage.getItem('capacities');
+    if (capacities != null) {
+        capacities = JSON.parse(capacities);
+        for (let i = 1; i < 3; i++) {
+            const tmp = target.eq(i);
+            tmp.text(`${tmp.text()} / ${capacities[i]}`);
+        }
+    }
+}
+
 const AllianceChat = () => {
 
 	let t;
