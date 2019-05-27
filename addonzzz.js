@@ -1,6 +1,6 @@
 'use strict';
 
-var Jq = jQuery.noConflict();
+var jq = jQuery.noConflict();
 
 console.log(Jq.fn.jquery);
 
@@ -10,13 +10,13 @@ const Capacities = () => {
         const wood = jq('#descriptionComplete10').text().split('.')[2].split(': ')[1].split('C')[0];
         window.localStorage.setItem('capacities', JSON.stringify(["", food, wood]));
     }
-    const target = $('.texte_ligne_boite_info');
+    const target = jq('.texte_ligne_boite_info');
     let capacities = window.localStorage.getItem('capacities');
     if (capacities != null) {
         capacities = JSON.parse(capacities);
         for (let i = 1; i < 3; i++) {
             const tmp = target.eq(i);
-            tmp.text(`${tmp.text()} / ${capacities[i]}`);
+            tmp.text(`jq{tmp.text()} / jq{capacities[i]}`);
         }
     }
 }
@@ -28,34 +28,34 @@ const AllianceChat = () => {
     let dom;
 
 	const envoiChat = () => {
-        if ($('#messageInput').val().length > 0) {
-            $.ajax({
+        if (jq('#messageInput').val().length > 0) {
+            jq.ajax({
                 url : "appelAjax.php",
                 type : 'GET',
-                data: "actualiserChat=alliance&message=%5Bcolor%3D%23000031%5D%20"+ encodeURIComponent($('#messageInput').val())+"&inputCouleur=000000&t=" + t,
+                data: "actualiserChat=alliance&message=%5Bcolor%3D%23000031%5D%20"+ encodeURIComponent(jq('#messageInput').val())+"&inputCouleur=000000&t=" + t,
                 success : (data) => {
-                    $('#messageInput').val("");
-                    $('#allianceMessages').prepend(data.message);
+                    jq('#messageInput').val("");
+                    jq('#allianceMessages').prepend(data.message);
                 }
             });
         }
 	}
 
 	const updateChat = () => {
-	$.ajax({
+	jq.ajax({
 		url : "appelAjax.php",
 		type : 'GET',
 		data: "actualiserChat=alliance",
-		success : (data) => $('#allianceMessages').prepend(data.message)
+		success : (data) => jq('#allianceMessages').prepend(data.message)
 	});
 	}
 
 	const getMessages = () => {
-		$.ajax({url: "http://s4.fourmizzz.fr/alliance.php",
+		jq.ajax({url: "http://s4.fourmizzz.fr/alliance.php",
 				success: (data) => {
-					dom = $(data);
+					dom = jq(data);
                     t = dom.find('#t').val();
-					const target = $('#allianceMessages');
+					const target = jq('#allianceMessages');
 					dom.find('#anciensMessages').each((idx, msg) => {
 						target.append(msg);
 					}).css('padding-left', '2px');
@@ -78,12 +78,12 @@ const AllianceChat = () => {
         "background-image" : "none"
 					  };
 
-		$('#droite').before('<div id="allianceMessages"></div>').remove();
-		msgDiv = $('#allianceMessages').attr('id', 'droite');
+		jq('#droite').before('<div id="allianceMessages"></div>').remove();
+		msgDiv = jq('#allianceMessages').attr('id', 'droite');
         msgDiv.css(msgDivCSS);
 		msgDiv.append('<h4 style="text-align: center;">Chat d\'alliance</h4><input type="text" id="messageInput"><div id="allianceMessages"></div>');
         getMessages();
-		$('#messageInput').css({width: '99%', 'margin-left': '2px'})
+		jq('#messageInput').css({width: '99%', 'margin-left': '2px'})
 		.keypress((e) => {
 		if (e.keyCode === 13) {
 			envoiChat();
