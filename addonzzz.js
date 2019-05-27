@@ -105,3 +105,5 @@ const MenuBar = () => {
 if (window.location.pathname !== "/alliance.php" || window.location.search.length > 0) {
 	AllianceChat();
 }
+
+Capacities();
