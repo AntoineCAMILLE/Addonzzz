@@ -16,7 +16,7 @@ const Capacities = () => {
         capacities = JSON.parse(capacities);
         for (let i = 1; i < 3; i++) {
             const tmp = target.eq(i);
-            tmp.text(`jq{tmp.text()} / jq{capacities[i]}`);
+            tmp.text(jq{tmp.text()} + ' / ' + jq{capacities[i]});
         }
     }
 }
