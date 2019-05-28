@@ -2,7 +2,7 @@
 
 var jq = jQuery.noConflict();
 
-console.log(Jq.fn.jquery);
+console.log(jq.fn.jquery);
 
 const Capacities = () => {
     if (window.location.pathname === '/construction.php') {
