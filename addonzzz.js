@@ -4,21 +4,36 @@ var jq = jQuery.noConflict();
 
 console.log(jq.fn.jquery);
 
+const createDivGauche = () => {
+    const css = {
+       height: '30%',
+        width: 'inherit',
+        position: 'fixed',
+        bottom: '2px',
+        'background-color': 'khaki',
+        border: 'black solid 1px',
+        'border-top': 0
+    };
+    jq('#gauche').append('<div id="bottomLeft"></div>');
+    jq('#bottomLeft').css(css);
+};
+
 const Capacities = () => {
     if (window.location.pathname === '/construction.php') {
         const food = jq('#descriptionComplete9').text().split('.')[2].split(': ')[1].split('C')[0];
         const wood = jq('#descriptionComplete10').text().split('.')[2].split(': ')[1].split('C')[0];
-        window.localStorage.setItem('capacities', JSON.stringify(["", food, wood]));
+        window.localStorage.setItem('capacities', JSON.stringify({food, wood}));
     }
-    const target = jq('.texte_ligne_boite_info');
-    let capacities = window.localStorage.getItem('capacities');
+    const foodImg = '<img class="icone_nourriture_boite_info" alt="Nourriture" src="images/icone/icone_pomme.png" height="20">';
+    const woodImg = '<img class="icone_materiaux_boite_info" alt="Materiaux" src="images/icone/icone_bois.png" width="20">';
+    const divStyle = 'style="border-bottom: 1px solid black;"';
+    const title = '<h4 style="font-size: smaller;margin: 0;text-align: center;border: 1px solid black;border-left: 0;border-right: 0;">Capacités Entrepôts</h4>'
+    const target = jq('#bottomLeft');
+    const capacities = window.localStorage.getItem('capacities');
     if (capacities != null) {
-        capacities = JSON.parse(capacities);
-        for (let i = 1; i < 3; i++) {
-            const tmp = target.eq(i);
-            tmp.text(`${tmp.text()} / ${capacities[i]}`);
-        }
-    }
+        const {food, wood} = JSON.parse(capacities)
+        target.append(`${title}<div ${divStyle}>${foodImg}<span>${food}</span></br>${woodImg}<span>${wood}</span></div>`);
+      }
 }
 
 const AllianceChat = () => {
@@ -107,3 +122,16 @@ if (window.location.pathname !== "/alliance.php" || window.location.search.lengt
 }
 
 Capacities();
+
+
+
+
+/*
+.jauge 
+	width: 125%;
+	__________________
+	$('#centre').prepend("<td>" + $("td[rowspan='4']").html() + "</td>")
+	position: absolute;
+    top: 15px;
+
+*/
