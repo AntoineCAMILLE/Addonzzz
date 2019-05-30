@@ -121,6 +121,7 @@ if (window.location.pathname !== "/alliance.php" || window.location.search.lengt
 	AllianceChat();
 }
 
+createDivGauche();
 Capacities();
 
 
